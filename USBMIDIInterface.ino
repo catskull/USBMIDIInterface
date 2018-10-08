@@ -12,6 +12,9 @@
 
 #define LED 13 // led pin
 #define LED_DURATION_MILLISECONDS 15
+#define SINGLE_THRU 19
+#define ALL_THRU 20
+
 // Create the Serial MIDI ports
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI1);
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial2, MIDI2);
@@ -23,6 +26,8 @@ elapsedMillis ledOnMillis;
 
 void setup() {
   Serial.begin(115200);
+  pinMode(SINGLE_THRU, INPUT_PULLUP);
+  pinMode(ALL_THRU, INPUT_PULLUP);
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LOW);
   MIDI1.begin(MIDI_CHANNEL_OMNI);
@@ -33,6 +38,8 @@ void setup() {
 
 void loop() {
   bool activity = false;
+  bool singleThru = !digitalRead(SINGLE_THRU);
+  bool allThru = !digitalRead(ALL_THRU);
 
   if (MIDI1.read()) {
     // get a MIDI IN1 (Serial) message
