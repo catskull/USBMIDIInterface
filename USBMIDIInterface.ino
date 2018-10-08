@@ -116,6 +116,11 @@ void loop() {
         case 2:
           MIDI3.send(mtype, data1, data2, channel);
           break;
+        case 3:
+          MIDI1.send(mtype, data1, data2, channel);
+          MIDI2.send(mtype, data1, data2, channel);
+          MIDI3.send(mtype, data1, data2, channel);
+          break;
       }
 
     } else {
@@ -129,6 +134,11 @@ void loop() {
           MIDI2.sendSysEx(SysExLength, usbMIDI.getSysExArray(), true);
           break;
         case 2:
+          MIDI3.sendSysEx(SysExLength, usbMIDI.getSysExArray(), true);
+          break;
+        case 3:
+          MIDI1.sendSysEx(SysExLength, usbMIDI.getSysExArray(), true);
+          MIDI2.sendSysEx(SysExLength, usbMIDI.getSysExArray(), true);
           MIDI3.sendSysEx(SysExLength, usbMIDI.getSysExArray(), true);
           break;
       }
