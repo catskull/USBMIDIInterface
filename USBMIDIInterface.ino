@@ -10,6 +10,8 @@
 
 #include <MIDI.h>
 
+#define LED 13 // led pin
+#define LED_DURATION_MILLISECONDS 15
 // Create the Serial MIDI ports
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI1);
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial2, MIDI2);
@@ -21,8 +23,8 @@ elapsedMillis ledOnMillis;
 
 void setup() {
   Serial.begin(115200);
-  pinMode(13, OUTPUT); // LED pin
-  digitalWrite(13, LOW);
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, LOW);
   MIDI1.begin(MIDI_CHANNEL_OMNI);
   MIDI2.begin(MIDI_CHANNEL_OMNI);
   MIDI3.begin(MIDI_CHANNEL_OMNI);
@@ -136,11 +138,11 @@ void loop() {
 
   // blink the LED when any activity has happened
   if (activity) {
-    digitalWriteFast(13, HIGH); // LED on
+    digitalWriteFast(LED, HIGH); // LED on
     ledOnMillis = 0;
   }
-  if (ledOnMillis > 15) {
-    digitalWriteFast(13, LOW);  // LED off
+  if (ledOnMillis > LED_DURATION_MILLISECONDS) {
+    digitalWriteFast(LED, LOW);  // LED off
   }
 
 }
